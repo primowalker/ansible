@@ -1,0 +1,11 @@
+---
+- name: Add or update user password
+  hosts: all
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: Add or update user password
+      user:
+        name: melvin
+        update_password: always
+        password: "{{ new_password|password_hash('sha512') }}"

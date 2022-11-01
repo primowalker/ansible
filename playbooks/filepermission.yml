@@ -1,0 +1,10 @@
+---
+- name: Change file permissions
+  hosts: all
+  become: yes
+  tasks:
+    - name: Change file permissions
+      file:
+        path: /home/jameswalker/linux2
+        mode: 0666
+      become: yes

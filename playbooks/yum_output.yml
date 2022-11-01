@@ -1,0 +1,16 @@
+---
+- hosts: all
+  tasks:
+    - name: Log yum output
+      yum:
+        name: emacs
+        state: present
+        update_cache: yes
+      become: true
+      register: yum_output
+    - name: Write output to file
+      ansible.builtin.copy:
+        content: "{{ yum_output | to_nice_json }}"
+        dest: /tmp/yum_output.txt
+    - debug: var=yum_output
+

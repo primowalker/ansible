@@ -1,0 +1,13 @@
+---
+- hosts: all
+  tasks:
+    - name: Log yum output
+      #shell: yum list installed\
+      yum:
+        list: installed
+      register: yum_output
+    - name: Write output to file
+      ansible.builtin.copy:
+        content: "{{ yum_output | to_nice_json }}"
+        dest: /tmp/yum_output.txt
+    - debug: var=yum_output
